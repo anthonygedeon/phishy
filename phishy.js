@@ -1,5 +1,10 @@
 #!/usr/bin/node
 
-const { exec } = require('child_process');
+"use strict";
+
 const fs = require('fs');
-const chalk = require('chalk');
+const http = require('http');
+const ngrok = require('ngrok');
+const inquirer = require('inquirer');
+const { exec } = require('child_process');
+
