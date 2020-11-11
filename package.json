@@ -24,6 +24,7 @@
 	},
 	"homepage": "https://github.com/anthonygedeon/phishy#readme",
 	"dependencies": {
+		"chalk": "^4.1.0",
 		"inquirer": "^7.3.3",
 		"ngrok": "^3.3.0"
 	}

