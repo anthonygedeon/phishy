@@ -80,3 +80,8 @@ function menuOptions() {
 banner
 
 menuOptions
+
+if [[ $menu_option == "06" ]]; then
+    python app/server.py
+    ngrok http 5003
+fi
